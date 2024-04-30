@@ -5,6 +5,10 @@ import random
 import os
 import time
 
+from bounding_box import BoundingBox
+
+bbox = BoundingBox(-300, 300, -300, 300)
+
 # Set up screen
 turtle.setup(650, 650)
 wn = turtle.Screen()
@@ -102,22 +106,12 @@ while time.time() < timeout:
     comp.forward(12)
 
     # Boundary Player Checking x coordinate
-    if player.xcor() > 290 or player.xcor() < -290:
-        player.right(180)
-        os.system("afplay bounce.mp3&")
-
-    # Boundary Player Checking y coordinate
-    if player.ycor() > 290 or player.ycor() < -290:
+    if player not in bbox:
         player.right(180)
         os.system("afplay bounce.mp3&")
 
     # Boundary Comp Checking x coordinate
-    if comp.xcor() > 280 or comp.xcor() < -280:
-        comp.right(random.randint(30, 155))
-        os.system("afplay bounce.mp3&")
-
-    # Boundary Comp Checking y coordinate
-    if comp.ycor() > 280 or comp.ycor() < -280:
+    if comp not in bbox:
         comp.right(random.randint(30, 155))
         os.system("afplay bounce.mp3&")
 
@@ -126,14 +120,10 @@ while time.time() < timeout:
         food.forward(3)
 
         # Boundary Food Checking x coordinate
-        if food.xcor() > 290 or food.xcor() < -290:
+        if food not in bbox:
             food.right(180)
             os.system("afplay bounce.mp3&")
 
-        # Boundary Food Checking y coordinate
-        if food.ycor() > 290 or food.ycor() < -290:
-            food.right(180)
-            os.system("afplay bounce.mp3&")
 
         # Player Collision checking
         if isCollision(player, food):
@@ -172,4 +162,4 @@ else:
     mypen.color("yellow")
     mypen.write("Game Over: You LOOSE", False, align="center", font=("Arial", 28, "normal"))
 
-# delay = input("Press Enter to finish.")
+delay = input("Press Enter to finish.")
