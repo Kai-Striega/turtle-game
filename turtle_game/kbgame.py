@@ -103,7 +103,7 @@ turtle.onkey(increase_speed, "Up")
 
 while time.time() < timeout:
     player.forward(speed)
-    comp.forward(12)
+    comp.forward(3)
 
     # Boundary Player Checking x coordinate
     if player not in bbox:
@@ -117,7 +117,7 @@ while time.time() < timeout:
 
     # Move Food around
     for food in foods:
-        food.forward(3)
+        food.forward(2)
 
         # Boundary Food Checking x coordinate
         if food not in bbox:
