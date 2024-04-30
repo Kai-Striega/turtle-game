@@ -1,3 +1,12 @@
+from typing import Protocol
+
+
+class HasPosition(Protocol):
+
+    def position(self) -> tuple[int, int]:
+        ...
+
+
 class BoundingBox:
 
     def __init__(self, left_bound: int, right_bound: int, bottom_bound: int, top_bound: int) -> None:
@@ -12,10 +21,6 @@ class BoundingBox:
     def is_in_y_bound(self, y: int | float) -> bool:
         return self.bottom_bound < y < self.top_bound
 
-    def __contains__(self, item) -> bool:
+    def __contains__(self, item: HasPosition) -> bool:
         x, y = item.position()
         return self.is_in_x_bound(x) and self.is_in_y_bound(y)
-
-
-
-
