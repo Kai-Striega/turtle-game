@@ -14,7 +14,7 @@ class TurtleDrawStrategy:
         pen.color(self._color)
         pen.pensize(self._pensize)
         pen.penup()
-        pen.setposition(box.left_bound, box.bottom_bound)
+        pen.setposition(box.bottom_left_corner)
         pen.pendown()
 
         for _ in range(2):

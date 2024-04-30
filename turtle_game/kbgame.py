@@ -1,20 +1,20 @@
 # Turtle Graphics Game
 import turtle
-from turtle import Turtle
 import math
 import random
 import os
 import time
 from pathlib import Path
 
-from bounding_box import BoundingBox
+from bounding_box import BoundingBox, Bounds
 from sound import create_sound_strategy
 from draw import TurtleDrawStrategy
 
 
 bounce_sound = create_sound_strategy(Path(".") / "bounce.mp3")
 turtle_drawer = TurtleDrawStrategy("white", 3)
-bbox = BoundingBox(-300, 300, -300, 300, bounce_sound, turtle_drawer)
+bounds = Bounds(-300, 300, -300, 300)
+bbox = BoundingBox(bounds, bounce_sound, turtle_drawer)
 
 # Set up screen
 turtle.setup(650, 650)
@@ -28,7 +28,7 @@ mypen = turtle.Turtle()
 mypen.color("white")
 mypen.penup()
 
-bbox.draw("white", 3)
+bbox.draw()
 
 # Create player turtle
 player = turtle.Turtle()
@@ -110,12 +110,12 @@ while time.time() < timeout:
     # Boundary Player Checking x coordinate
     if player not in bbox:
         player.right(180)
-        os.system("afplay bounce.mp3&")
+        bbox.play_bounce_sound()
 
     # Boundary Comp Checking x coordinate
     if comp not in bbox:
         comp.right(random.randint(30, 155))
-        os.system("afplay bounce.mp3&")
+        bbox.play_bounce_sound()
 
     # Move Food around
     for food in foods:
@@ -124,7 +124,7 @@ while time.time() < timeout:
         # Boundary Food Checking x coordinate
         if food not in bbox:
             food.right(180)
-            os.system("afplay bounce.mp3&")
+            bbox.play_bounce_sound()
 
 
         # Player Collision checking
