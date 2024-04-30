@@ -64,8 +64,8 @@ for count in range(maxFoods):
 # Set speed variable
 speed = 1
 
-# Set game time limit for 1 minute (60 seconds)
-timeout = time.time() + 10 * 6
+# Set game time limit for 10 seconds
+timeout = time.time() + 10
 
 
 # Define  functions
@@ -97,12 +97,7 @@ turtle.onkey(turn_left, "Left")
 turtle.onkey(turn_right, "Right")
 turtle.onkey(increase_speed, "Up")
 
-while True:
-    gametime = 0
-    if gametime == 6 or time.time() > timeout:
-        break
-    gametime = gametime - 1
-
+while time.time() < timeout:
     player.forward(speed)
     comp.forward(12)
 
