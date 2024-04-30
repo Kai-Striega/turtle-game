@@ -4,10 +4,11 @@ import math
 import random
 import os
 import time
+from pathlib import Path
 
 from bounding_box import BoundingBox
 
-bbox = BoundingBox(-300, 300, -300, 300)
+bbox = BoundingBox(-300, 300, -300, 300, Path(".") / "bounce.mp3")
 
 # Set up screen
 turtle.setup(650, 650)

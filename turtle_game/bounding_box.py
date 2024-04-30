@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from turtle import Turtle
 from typing import Protocol
 
@@ -10,11 +12,12 @@ class HasPosition(Protocol):
 
 class BoundingBox:
 
-    def __init__(self, left_bound: int, right_bound: int, bottom_bound: int, top_bound: int) -> None:
+    def __init__(self, left_bound: int, right_bound: int, bottom_bound: int, top_bound: int, bounce_sound_path: Path) -> None:
         self.left_bound = left_bound
         self.right_bound = right_bound
         self.bottom_bound = bottom_bound
         self.top_bound = top_bound
+        self.bounce_sound_path = bounce_sound_path
 
     def __contains__(self, item: HasPosition) -> bool:
         x, y = item.position()
@@ -50,3 +53,5 @@ class BoundingBox:
 
         pen.hideturtle()
 
+    def play_bounce_sound(self):
+        os.system(f"afplay {self.bounce_sound_path}&")
