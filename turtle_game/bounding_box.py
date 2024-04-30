@@ -1,6 +1,3 @@
-import os
-from pathlib import Path
-from turtle import Turtle
 from typing import Protocol
 
 
@@ -10,14 +7,35 @@ class HasPosition(Protocol):
         ...
 
 
+class SoundStrategy(Protocol):
+
+    def play(self) -> None:
+        ...
+
+
+class DrawStrategy(Protocol):
+
+    def draw(self, box: "BoundingBox") -> None:
+        ...
+
+
 class BoundingBox:
 
-    def __init__(self, left_bound: int, right_bound: int, bottom_bound: int, top_bound: int, bounce_sound_path: Path) -> None:
+    def __init__(
+        self,
+            left_bound: int,
+            right_bound: int,
+            bottom_bound: int,
+            top_bound: int,
+            sound_strategy: SoundStrategy,
+            draw_strategy: DrawStrategy,
+    ) -> None:
         self.left_bound = left_bound
         self.right_bound = right_bound
         self.bottom_bound = bottom_bound
         self.top_bound = top_bound
-        self.bounce_sound_path = bounce_sound_path
+        self._sound_strategy = sound_strategy
+        self._draw_strategy = draw_strategy
 
     def __contains__(self, item: HasPosition) -> bool:
         x, y = item.position()
@@ -37,21 +55,8 @@ class BoundingBox:
     def _is_in_y_bound(self, y: int | float) -> bool:
         return self.bottom_bound < y < self.top_bound
 
-    def draw(self, color: str, pensize: int) -> None:
-        pen = Turtle()
-        pen.color(color)
-        pen.pensize(pensize)
-        pen.penup()
-        pen.setposition(self.left_bound, self.bottom_bound)
-        pen.pendown()
-
-        for _ in range(2):
-            pen.forward(self.width)
-            pen.left(90)
-            pen.forward(self.height)
-            pen.left(90)
-
-        pen.hideturtle()
+    def draw(self) -> None:
+        self._draw_strategy.draw(self)
 
     def play_bounce_sound(self):
-        os.system(f"afplay {self.bounce_sound_path}&")
+        self._sound_strategy.play()

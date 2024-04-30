@@ -1,5 +1,6 @@
 # Turtle Graphics Game
 import turtle
+from turtle import Turtle
 import math
 import random
 import os
@@ -7,8 +8,13 @@ import time
 from pathlib import Path
 
 from bounding_box import BoundingBox
+from sound import create_sound_strategy
+from draw import TurtleDrawStrategy
 
-bbox = BoundingBox(-300, 300, -300, 300, Path(".") / "bounce.mp3")
+
+bounce_sound = create_sound_strategy(Path(".") / "bounce.mp3")
+turtle_drawer = TurtleDrawStrategy("white", 3)
+bbox = BoundingBox(-300, 300, -300, 300, bounce_sound, turtle_drawer)
 
 # Set up screen
 turtle.setup(650, 650)
