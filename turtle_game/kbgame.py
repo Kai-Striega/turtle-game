@@ -20,13 +20,8 @@ wn.tracer(3)
 mypen = turtle.Turtle()
 mypen.color("white")
 mypen.penup()
-mypen.setposition(-300, -300)
-mypen.pendown()
-mypen.pensize(3)
-for side in range(4):
-    mypen.forward(600)
-    mypen.left(90)
-mypen.hideturtle()
+
+bbox.draw("white", 3)
 
 # Create player turtle
 player = turtle.Turtle()
