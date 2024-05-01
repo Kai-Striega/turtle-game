@@ -14,7 +14,7 @@ class SoundStrategy(Protocol):
         ...
 
 
-class DrawStrategy(Protocol):
+class DrawBoundingBoxStrategy(Protocol):
 
     def draw(self, box: "BoundingBox") -> None:
         ...
@@ -30,7 +30,7 @@ class Bounds:
 
 class BoundingBox:
 
-    def __init__(self,  bounds: Bounds, sound_strategy: SoundStrategy, draw_strategy: DrawStrategy) -> None:
+    def __init__(self, bounds: Bounds, sound_strategy: SoundStrategy, draw_strategy: DrawBoundingBoxStrategy) -> None:
         self._bounds = bounds
         self._sound_strategy = sound_strategy
         self._draw_strategy = draw_strategy
